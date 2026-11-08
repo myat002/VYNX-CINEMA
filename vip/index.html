@@ -1,0 +1,386 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>VYNX CINEMA VIP</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #080808;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  padding: 20px;
+  background: #111;
+  border-bottom: 1px solid #302718;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: #e5c477;
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.gold {
+  color: #e5c477;
+}
+
+main {
+  padding: 18px;
+  padding-bottom: 35px;
+}
+
+.hero {
+  padding: 30px 20px;
+  min-height: 190px;
+  border: 1px solid #55421f;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #211a0d, #090909 75%);
+  margin-bottom: 25px;
+}
+
+.hero h1 {
+  color: #e5c477;
+  font-size: 27px;
+}
+
+.hero p {
+  color: #bbb;
+  font-size: 13px;
+}
+
+h2 {
+  color: #e5c477;
+  font-size: 19px;
+}
+
+.menu {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.menu-card {
+  background: #151515;
+  border: 1px solid #40331c;
+  border-radius: 12px;
+  padding: 20px 12px;
+  min-height: 125px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.menu-card:active {
+  background: #292010;
+}
+
+.menu-card .emoji {
+  font-size: 30px;
+}
+
+.menu-card h3 {
+  color: #e5c477;
+  font-size: 13px;
+}
+
+.menu-card p {
+  color: #888;
+  font-size: 11px;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.back {
+  background: transparent;
+  border: 1px solid #a88945;
+  color: #e5c477;
+  padding: 10px 16px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.movie {
+  display: flex;
+  gap: 12px;
+  background: #151515;
+  border: 1px solid #302718;
+  border-radius: 9px;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+.movie img {
+  width: 85px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.movie-info {
+  flex: 1;
+}
+
+.movie-info h3 {
+  color: #e5c477;
+  font-size: 14px;
+}
+
+.movie-info p {
+  color: #999;
+  font-size: 12px;
+}
+
+.btn {
+  background: #d9b45b;
+  color: #111;
+  border: 0;
+  border-radius: 5px;
+  padding: 10px 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.full {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.panel {
+  background: #151515;
+  border: 1px solid #40331c;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 15px;
+}
+
+.panel p {
+  color: #aaa;
+  line-height: 1.7;
+  font-size: 13px;
+}
+
+footer {
+  text-align: center;
+  color: #666;
+  font-size: 11px;
+  padding: 25px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">VYNX CINEMA</div>
+  <div class="gold">✦ VIP</div>
+</header>
+
+<main>
+
+<!-- HOME PAGE -->
+<div id="home" class="page active">
+
+  <div class="hero">
+    <h1>WELCOME TO<br>VYNX CINEMA</h1>
+    <p>YOUR PREMIUM ENTERTAINMENT WORLD.</p>
+    <p class="gold">MOVIES • PREMIUM • ENTERTAINMENT</p>
+  </div>
+
+  <h2>✦ EXPLORE</h2>
+
+  <div class="menu">
+
+    <div class="menu-card" onclick="openPage('movies')">
+      <div class="emoji">🎬</div>
+      <h3>MMSUB MOVIE</h3>
+      <p>Myanmar Subtitle Movies</p>
+    </div>
+
+    <div class="menu-card" onclick="openPage('premium')">
+      <div class="emoji">👑</div>
+      <h3>JOIN PREMIUM</h3>
+      <p>Premium Membership</p>
+    </div>
+
+    <div class="menu-card" onclick="openPage('games')">
+      <div class="emoji">🎮</div>
+      <h3>GAME & MINECRAFT ADDON</h3>
+      <p>Games and Addons</p>
+    </div>
+
+    <div class="menu-card" onclick="openPage('more')">
+      <div class="emoji">✦</div>
+      <h3>MORE</h3>
+      <p>More Information</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- MOVIE PAGE -->
+<div id="movies" class="page">
+  <button class="back" onclick="goHome()">← BACK</button>
+
+  <h2>🎬 MMSUB MOVIE</h2>
+
+  <div class="movie">
+    <img src="https://image.tmdb.org/t/p/w500/4GIeI5K5YdDUkR3mNQBoScpSFEf.jpg">
+    <div class="movie-info">
+      <h3>REAL STEEL</h3>
+      <p>2011 · MOVIE</p>
+      <button class="btn" onclick="watchMovie(12)">WATCH NOW</button>
+    </div>
+  </div>
+
+  <div class="movie">
+    <img src="https://image.tmdb.org/t/p/w500/onTSipZ8R3bliBdKfPtsDuHTdlL.jpg">
+    <div class="movie-info">
+      <h3>HOME ALONE</h3>
+      <p>1990 · MOVIE</p>
+      <button class="btn" onclick="watchMovie(13)">WATCH NOW</button>
+    </div>
+  </div>
+
+  <div class="movie">
+    <img src="https://image.tmdb.org/t/p/w500/arw2vcBveWOVZr6pxd9XTd1TdQa.jpg">
+    <div class="movie-info">
+      <h3>FORREST GUMP</h3>
+      <p>1994 · MOVIE</p>
+      <button class="btn" onclick="watchMovie(14)">WATCH NOW</button>
+    </div>
+  </div>
+
+  <div class="movie">
+    <img src="https://image.tmdb.org/t/p/w500/vuza0WqY239yBXOadKlGwJsZJFE.jpg">
+    <div class="movie-info">
+      <h3>THE TRUMAN SHOW</h3>
+      <p>1998 · MOVIE</p>
+      <button class="btn" onclick="watchMovie(15)">WATCH NOW</button>
+    </div>
+  </div>
+</div>
+
+<!-- PREMIUM PAGE -->
+<div id="premium" class="page">
+  <button class="back" onclick="goHome()">← BACK</button>
+
+  <div class="panel">
+    <h2>👑 JOIN PREMIUM</h2>
+    <p>Welcome to VYNX CINEMA PREMIUM.</p>
+    <p>Contact our admin for premium membership information.</p>
+    <button class="btn full" onclick="contactAdmin()">
+      CONTACT ADMIN
+    </button>
+  </div>
+</div>
+
+<!-- GAMES PAGE -->
+<div id="games" class="page">
+  <button class="back" onclick="goHome()">← BACK</button>
+
+  <div class="panel">
+    <h2>🎮 GAME & MINECRAFT ADDON</h2>
+    <p>Games and Minecraft Addons.</p>
+    <h3 class="gold">COMING SOON...</h3>
+  </div>
+</div>
+
+<!-- MORE PAGE -->
+<div id="more" class="page">
+  <button class="back" onclick="goHome()">← BACK</button>
+
+  <div class="panel">
+    <h2>✦ MORE</h2>
+    <p>Welcome to VYNX CINEMA.</p>
+    <button class="btn full" onclick="openTelegram()">
+      OPEN TELEGRAM BOT
+    </button>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  VYNX CINEMA © 2026<br>
+  YOUR ENTERTAINMENT WORLD
+</footer>
+
+<script>
+const tg = window.Telegram.WebApp;
+
+if (tg) {
+  tg.ready();
+  tg.expand();
+}
+
+function openPage(pageId) {
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
+  });
+
+  document.getElementById(pageId).classList.add('active');
+
+  if (tg && tg.BackButton) {
+    tg.BackButton.show();
+  }
+
+  window.scrollTo(0, 0);
+}
+
+function goHome() {
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
+  });
+
+  document.getElementById('home').classList.add('active');
+
+  if (tg && tg.BackButton) {
+    tg.BackButton.hide();
+  }
+
+  window.scrollTo(0, 0);
+}
+
+if (tg && tg.BackButton) {
+  tg.BackButton.onClick(goHome);
+}
+
+function watchMovie(id) {
+  window.location.href =
+    "https://t.me/VynxCinema_Bot?start=video_" + id;
+}
+
+function contactAdmin() {
+  window.open("https://t.me/Zyren87", "_blank");
+}
+
+function openTelegram() {
+  window.open("https://t.me/VynxCinema_Bot", "_blank");
+}
+</script>
+
+</body>
+  </html>
+  
