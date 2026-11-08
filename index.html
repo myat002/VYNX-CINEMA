@@ -1,96 +1,339 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#080808">
 <title>VYNX CINEMA</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#080808;color:white;font-family:Arial,sans-serif}
-header{padding:20px;display:flex;justify-content:space-between;align-items:center;background:#101010;position:sticky;top:0;z-index:5}
-.logo{font-size:23px;font-weight:900;color:#d9b45b;letter-spacing:2px}
-.profile{color:#d9b45b;font-size:22px}
-.hero{padding:30px 20px;height:250px;background:linear-gradient(90deg,#080808 5%,#080808bb 60%,transparent),url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1000') center/cover}
-.hero h1{font-size:32px;margin-top:45px;color:#e5c477}
-.hero p{color:#ddd;font-size:13px}
-.btn{background:#d9b45b;color:#111;border:0;padding:12px 22px;border-radius:5px;font-weight:bold}
-section{padding:10px 16px}
+body{
+ margin:0;background:#080808;color:white;
+ font-family:Arial,sans-serif;
+ padding-bottom:75px
+}
+header{
+ position:sticky;top:0;z-index:10;
+ background:#101010;padding:17px;
+ display:flex;justify-content:space-between;
+ align-items:center;border-bottom:1px solid #292929
+}
+.logo{font-size:22px;font-weight:900;color:#d9b45b;letter-spacing:2px}
+.hero{
+ padding:20px;height:235px;
+ background:linear-gradient(90deg,#080808 5%,#080808bb 70%,transparent),
+ url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1000') center/cover
+}
+.hero h1{font-size:30px;margin-top:35px;color:#e5c477}
+.hero p{font-size:12px;color:#ddd}
+.btn{
+ padding:12px 20px;border:0;border-radius:5px;
+ background:#d9b45b;color:#111;font-weight:bold
+}
+section{padding:12px 15px}
 h2{font-size:18px;color:#e5c477}
-.search{width:100%;padding:14px;background:#191919;border:1px solid #333;border-radius:8px;color:white;margin:10px 0}
-.movies{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.movie{background:#151515;border-radius:9px;overflow:hidden;border:1px solid #282828}
-.poster{height:190px;background-size:cover;background-position:center}
-.info{padding:10px}
-.info h3{font-size:14px;margin:3px 0 8px}
+.search{
+ width:100%;padding:14px;
+ background:#191919;border:1px solid #333;
+ border-radius:8px;color:white
+}
+.categories{
+ display:flex;gap:9px;overflow-x:auto;
+ padding:12px 15px;scrollbar-width:none
+}
+.categories button{
+ white-space:nowrap;padding:10px 16px;
+ background:#171717;color:#bbb;
+ border:1px solid #333;border-radius:20px
+}
+.categories button.active{
+ background:#d9b45b;color:#111
+}
+.movies{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:12px
+}
+.movie{
+ background:#151515;border:1px solid #292929;
+ border-radius:9px;overflow:hidden
+}
+.poster{
+ width:100%;aspect-ratio:2/3;
+ background:#222 center/cover no-repeat
+}
+.info{padding:9px}
+.info h3{font-size:14px;margin:4px 0}
 .info p{font-size:11px;color:#aaa}
-.watch{width:100%;padding:10px;border:0;border-radius:4px;background:#d9b45b;font-weight:bold}
-nav{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #333;display:flex;justify-content:space-around;padding:14px 4px;z-index:10}
+.watch,.details{
+ width:100%;padding:10px;border:0;
+ border-radius:4px;font-weight:bold;margin-top:6px
+}
+.watch{background:#d9b45b;color:#111}
+.details{background:#292929;color:white}
+.empty{
+ grid-column:1/-1;text-align:center;
+ padding:35px;color:#888
+}
+.modal{
+ display:none;position:fixed;inset:0;
+ background:#000e;z-index:30;
+ align-items:center;justify-content:center;
+ padding:20px
+}
+.modal-content{
+ background:#171717;padding:18px;
+ border:1px solid #444;border-radius:12px;
+ width:100%;max-width:350px;max-height:85vh;
+ overflow:auto
+}
+.modal-content img{
+ width:100%;max-height:300px;
+ object-fit:cover;border-radius:8px
+}
+.close{
+ float:right;background:none;border:0;
+ color:white;font-size:25px
+}
+nav{
+ position:fixed;bottom:0;left:0;right:0;
+ background:#111;border-top:1px solid #333;
+ display:flex;justify-content:space-around;
+ padding:15px 4px;z-index:20
+}
 nav a{color:#bbb;text-decoration:none;font-size:12px}
-nav a:focus,nav a:hover{color:#d9b45b}
-main{padding-bottom:70px}
 footer{text-align:center;color:#666;padding:25px;font-size:11px}
 </style>
 </head>
+
 <body>
+
 <header>
-<div class="logo">VYNX CINEMA</div>
-<div class="profile">◉</div>
+ <div class="logo">VYNX CINEMA</div>
+ <div style="color:#d9b45b">◉</div>
 </header>
 
 <main>
+
 <div class="hero">
-<h1>WELCOME TO<br>VYNX CINEMA</h1>
-<p>YOUR MOVIE WORLD STARTS HERE.</p>
-<button class="btn" onclick="document.getElementById('movies').scrollIntoView()">EXPLORE NOW</button>
+ <h1>WELCOME TO<br>VYNX CINEMA</h1>
+ <p>YOUR MOVIE WORLD STARTS HERE.</p>
+ <button class="btn" onclick="goMovies()">EXPLORE NOW</button>
 </div>
 
 <section>
-<input class="search" id="search" placeholder="Search movies..." oninput="searchMovies()">
+ <input class="search" id="search"
+ placeholder="⌕ Search movies..."
+ oninput="renderMovies()">
 </section>
+
+<div class="categories">
+ <button class="active" onclick="setCategory('ALL',this)">ALL</button>
+ <button onclick="setCategory('MOVIE',this)">MOVIES</button>
+ <button onclick="setCategory('CARTOON',this)">CARTOONS</button>
+ <button onclick="setCategory('K-DRAMA',this)">K-DRAMA</button>
+ <button onclick="setCategory('SERIES',this)">SERIES</button>
+ <button onclick="setCategory('ACTION',this)">ACTION</button>
+</div>
 
 <section id="movies">
-<h2>✦ LATEST MOVIES</h2>
-<div class="movies" id="movieList"></div>
+ <h2>✦ LATEST RELEASES</h2>
+ <div class="movies" id="movieList"></div>
 </section>
 
-<footer>VYNX CINEMA © 2026<br>YOUR ENTERTAINMENT WORLD</footer>
+<footer>
+ VYNX CINEMA © 2026<br>
+ RELIVE YOUR MEMORIES
+</footer>
+
 </main>
 
 <nav>
-<a href="#">⌂ HOME</a>
-<a href="#movies">▣ MOVIES</a>
-<a href="#search">⌕ SEARCH</a>
-<a href="https://t.me/VynxCinema_Bot">✉ TELEGRAM</a>
+ <a href="#">⌂ HOME</a>
+ <a href="#movies">▣ MOVIES</a>
+ <a href="#search">⌕ SEARCH</a>
+ <a href="https://t.me/VynxCinema_Bot">✉ TELEGRAM</a>
 </nav>
 
+<div class="modal" id="movieModal" onclick="closeOutside(event)">
+ <div class="modal-content">
+  <button class="close" onclick="closeModal()">×</button>
+  <div id="modalContent"></div>
+ </div>
+</div>
+
 <script>
-const movies=[
-{title:"Real Steel",year:2011,id:12,poster:"https://image.tmdb.org/t/p/w500/4GIeI5K5YdDUkR3mNQBoScpSFEf.jpg"},
-{title:"Home Alone",year:1990,id:13,poster:"https://image.tmdb.org/t/p/w500/onTSipZ8R3bliBdKfPtsDuHTdlL.jpg"},
-{title:"Forrest Gump",year:1994,id:14,poster:"https://image.tmdb.org/t/p/w500/arw2vcBveWOVZr6pxd9XTd1TdQa.jpg"},
-{title:"The Truman Show",year:1998,id:15,poster:"https://image.tmdb.org/t/p/w500/vuza0WqY239yBXOadKlGwJsZJFE.jpg"}
+if(window.Telegram && window.Telegram.WebApp){
+ Telegram.WebApp.ready();
+ Telegram.WebApp.expand();
+}
+
+/*
+==================================
+ VYNX CINEMA MOVIE DATABASE
+==================================
+
+ကိုယ်တိုင် Movie အသစ်ထည့်ရန်
+အောက်က movies array ထဲမှာ
+Movie Object အသစ်ထည့်ပါ။
+
+id = Telegram Storage Message ID
+poster = Poster Image URL
+category = MOVIE / CARTOON / K-DRAMA / SERIES / ACTION
+
+*/
+
+const movies = [
+
+ {
+  title:"Real Steel",
+  year:2011,
+  id:12,
+  category:"MOVIE",
+  poster:"https://image.tmdb.org/t/p/w500/4GIeI5K5YdDUkR3mNQBoScpSFEf.jpg",
+  description:"A story about robots, family and determination."
+ },
+
+ {
+  title:"Home Alone",
+  year:1990,
+  id:13,
+  category:"MOVIE",
+  poster:"https://image.tmdb.org/t/p/w500/onTSipZ8R3bliBdKfPtsDuHTdlL.jpg",
+  description:"A young boy discovers an unexpected adventure."
+ },
+
+ {
+  title:"Forrest Gump",
+  year:1994,
+  id:14,
+  category:"MOVIE",
+  poster:"https://image.tmdb.org/t/p/w500/arw2vcBveWOVZr6pxd9XTd1TdQa.jpg",
+  description:"An extraordinary journey through life."
+ },
+
+ {
+  title:"The Truman Show",
+  year:1998,
+  id:15,
+  category:"MOVIE",
+  poster:"https://image.tmdb.org/t/p/w500/vuza0WqY239yBXOadKlGwJsZJFE.jpg",
+  description:"A man begins questioning the world around him."
+ }
+
 ];
 
-function showMovies(list){
-document.getElementById("movieList").innerHTML=list.map(m=>`
-<div class="movie">
-<div class="poster" style="background-image:url('${m.poster}')"></div>
-<div class="info">
-<h3>${m.title}</h3>
-<p>📅 ${m.year} · 🎬 MOVIE</p>
-<button class="watch" onclick="watchMovie(${m.id})">▶ WATCH NOW</button>
-</div>
-</div>`).join("");
+let selectedCategory="ALL";
+
+function goMovies(){
+ document.getElementById("movies").scrollIntoView({
+  behavior:"smooth"
+ });
 }
-function searchMovies(){
-const q=document.getElementById("search").value.toLowerCase();
-showMovies(movies.filter(m=>m.title.toLowerCase().includes(q)));
+
+function setCategory(category,button){
+ selectedCategory=category;
+
+ document.querySelectorAll(".categories button")
+ .forEach(b=>b.classList.remove("active"));
+
+ button.classList.add("active");
+ renderMovies();
 }
+
+function renderMovies(){
+
+ const query=document.getElementById("search")
+ .value.toLowerCase().trim();
+
+ const filtered=movies.filter(m=>{
+  const nameMatch=m.title.toLowerCase().includes(query);
+  const categoryMatch=
+   selectedCategory==="ALL" ||
+   m.category===selectedCategory;
+
+  return nameMatch && categoryMatch;
+ });
+
+ const list=document.getElementById("movieList");
+
+ if(filtered.length===0){
+  list.innerHTML='<div class="empty">NO MOVIES FOUND</div>';
+  return;
+ }
+
+ list.innerHTML=filtered.map(m=>`
+  <div class="movie">
+
+   <div class="poster"
+   style="background-image:url('${m.poster}')">
+   </div>
+
+   <div class="info">
+    <h3>${escapeHTML(m.title)}</h3>
+    <p>📅 ${m.year} · 🎬 ${m.category}</p>
+
+    <button class="details"
+    onclick="showDetails(${m.id})">
+    VIEW DETAILS
+    </button>
+
+    <button class="watch"
+    onclick="watchMovie(${m.id})">
+    ▶ WATCH NOW
+    </button>
+
+   </div>
+  </div>
+ `).join("");
+}
+
+function escapeHTML(value){
+ return String(value).replace(/[&<>"']/g,c=>({
+  '&':'&amp;',
+  '<':'&lt;',
+  '>':'&gt;',
+  '"':'&quot;',
+  "'":'&#39;'
+ })[c]);
+}
+
+function showDetails(id){
+
+ const m=movies.find(x=>x.id===id);
+ if(!m)return;
+
+ document.getElementById("modalContent").innerHTML=`
+  <img src="${m.poster}" alt="">
+  <h2>${escapeHTML(m.title)}</h2>
+  <p>📅 ${m.year}</p>
+  <p>🎬 ${m.category}</p>
+  <p style="color:#bbb">${escapeHTML(m.description)}</p>
+  <button class="watch" onclick="watchMovie(${m.id})">
+   ▶ WATCH NOW
+  </button>
+ `;
+
+ document.getElementById("movieModal").style.display="flex";
+}
+
+function closeModal(){
+ document.getElementById("movieModal").style.display="none";
+}
+
+function closeOutside(event){
+ if(event.target.id==="movieModal")closeModal();
+}
+
 function watchMovie(id){
-window.location.href="https://t.me/VynxCinema_Bot?start=video_"+id;
+ window.location.href=
+ "https://t.me/VynxCinema_Bot?start=video_"+id;
 }
-showMovies(movies);
+
+renderMovies();
 </script>
+
 </body>
 </html>
