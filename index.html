@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>VYNX CINEMA</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080808;color:white;font-family:Arial,sans-serif}
+header{padding:20px;display:flex;justify-content:space-between;align-items:center;background:#101010;position:sticky;top:0;z-index:5}
+.logo{font-size:23px;font-weight:900;color:#d9b45b;letter-spacing:2px}
+.profile{color:#d9b45b;font-size:22px}
+.hero{padding:30px 20px;height:250px;background:linear-gradient(90deg,#080808 5%,#080808bb 60%,transparent),url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1000') center/cover}
+.hero h1{font-size:32px;margin-top:45px;color:#e5c477}
+.hero p{color:#ddd;font-size:13px}
+.btn{background:#d9b45b;color:#111;border:0;padding:12px 22px;border-radius:5px;font-weight:bold}
+section{padding:10px 16px}
+h2{font-size:18px;color:#e5c477}
+.search{width:100%;padding:14px;background:#191919;border:1px solid #333;border-radius:8px;color:white;margin:10px 0}
+.movies{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.movie{background:#151515;border-radius:9px;overflow:hidden;border:1px solid #282828}
+.poster{height:190px;background-size:cover;background-position:center}
+.info{padding:10px}
+.info h3{font-size:14px;margin:3px 0 8px}
+.info p{font-size:11px;color:#aaa}
+.watch{width:100%;padding:10px;border:0;border-radius:4px;background:#d9b45b;font-weight:bold}
+nav{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #333;display:flex;justify-content:space-around;padding:14px 4px;z-index:10}
+nav a{color:#bbb;text-decoration:none;font-size:12px}
+nav a:focus,nav a:hover{color:#d9b45b}
+main{padding-bottom:70px}
+footer{text-align:center;color:#666;padding:25px;font-size:11px}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">VYNX CINEMA</div>
+<div class="profile">◉</div>
+</header>
+
+<main>
+<div class="hero">
+<h1>WELCOME TO<br>VYNX CINEMA</h1>
+<p>YOUR MOVIE WORLD STARTS HERE.</p>
+<button class="btn" onclick="document.getElementById('movies').scrollIntoView()">EXPLORE NOW</button>
+</div>
+
+<section>
+<input class="search" id="search" placeholder="Search movies..." oninput="searchMovies()">
+</section>
+
+<section id="movies">
+<h2>✦ LATEST MOVIES</h2>
+<div class="movies" id="movieList"></div>
+</section>
+
+<footer>VYNX CINEMA © 2026<br>YOUR ENTERTAINMENT WORLD</footer>
+</main>
+
+<nav>
+<a href="#">⌂ HOME</a>
+<a href="#movies">▣ MOVIES</a>
+<a href="#search">⌕ SEARCH</a>
+<a href="https://t.me/VynxCinema_Bot">✉ TELEGRAM</a>
+</nav>
+
+<script>
+const movies=[
+{title:"Real Steel",year:2011,id:12,poster:"https://image.tmdb.org/t/p/w500/4GIeI5K5YdDUkR3mNQBoScpSFEf.jpg"},
+{title:"Home Alone",year:1990,id:13,poster:"https://image.tmdb.org/t/p/w500/onTSipZ8R3bliBdKfPtsDuHTdlL.jpg"},
+{title:"Forrest Gump",year:1994,id:14,poster:"https://image.tmdb.org/t/p/w500/arw2vcBveWOVZr6pxd9XTd1TdQa.jpg"},
+{title:"The Truman Show",year:1998,id:15,poster:"https://image.tmdb.org/t/p/w500/vuza0WqY239yBXOadKlGwJsZJFE.jpg"}
+];
+
+function showMovies(list){
+document.getElementById("movieList").innerHTML=list.map(m=>`
+<div class="movie">
+<div class="poster" style="background-image:url('${m.poster}')"></div>
+<div class="info">
+<h3>${m.title}</h3>
+<p>📅 ${m.year} · 🎬 MOVIE</p>
+<button class="watch" onclick="watchMovie(${m.id})">▶ WATCH NOW</button>
+</div>
+</div>`).join("");
+}
+function searchMovies(){
+const q=document.getElementById("search").value.toLowerCase();
+showMovies(movies.filter(m=>m.title.toLowerCase().includes(q)));
+}
+function watchMovie(id){
+window.location.href="https://t.me/VynxCinema_Bot?start=video_"+id;
+}
+showMovies(movies);
+</script>
+</body>
+</html>
