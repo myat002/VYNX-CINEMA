@@ -10,101 +10,46 @@
 
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;background:#080808;color:white;
- font-family:Arial,sans-serif;
- padding-bottom:75px
-}
-header{
- position:sticky;top:0;z-index:10;
- background:#101010;padding:17px;
- display:flex;justify-content:space-between;
- align-items:center;border-bottom:1px solid #292929
-}
+body{margin:0;background:#080808;color:white;font-family:Arial,sans-serif;padding-bottom:75px}
+header{position:sticky;top:0;z-index:10;background:#101010;padding:17px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #292929}
 .logo{font-size:22px;font-weight:900;color:#d9b45b;letter-spacing:2px}
-.hero{
- padding:20px;height:235px;
- background:linear-gradient(90deg,#080808 5%,#080808bb 70%,transparent),
- url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1000') center/cover
-}
+.hero{padding:20px;height:235px;background:linear-gradient(90deg,#080808 5%,#080808bb 70%,transparent),url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1000') center/cover}
 .hero h1{font-size:30px;margin-top:35px;color:#e5c477}
 .hero p{font-size:12px;color:#ddd}
-.btn{
- padding:12px 20px;border:0;border-radius:5px;
- background:#d9b45b;color:#111;font-weight:bold
-}
+.btn{padding:12px 20px;border:0;border-radius:5px;background:#d9b45b;color:#111;font-weight:bold}
 section{padding:12px 15px}
 h2{font-size:18px;color:#e5c477}
-.search{
- width:100%;padding:14px;
- background:#191919;border:1px solid #333;
- border-radius:8px;color:white
-}
-.categories{
- display:flex;gap:9px;overflow-x:auto;
- padding:12px 15px;scrollbar-width:none
-}
-.categories button{
- white-space:nowrap;padding:10px 16px;
- background:#171717;color:#bbb;
- border:1px solid #333;border-radius:20px
-}
-.categories button.active{
- background:#d9b45b;color:#111
-}
-.movies{
- display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
- gap:12px
-}
-.movie{
- background:#151515;border:1px solid #292929;
- border-radius:9px;overflow:hidden
-}
-.poster{
- width:100%;aspect-ratio:2/3;
- background:#222 center/cover no-repeat
-}
+.search{width:100%;padding:14px;background:#191919;border:1px solid #333;border-radius:8px;color:white}
+.categories{display:flex;gap:9px;overflow-x:auto;padding:12px 15px;scrollbar-width:none}
+.categories button{white-space:nowrap;padding:10px 16px;background:#171717;color:#bbb;border:1px solid #333;border-radius:20px}
+.categories button.active{background:#d9b45b;color:#111}
+.movies{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.movie{background:#151515;border:1px solid #292929;border-radius:9px;overflow:hidden}
+.poster{width:100%;aspect-ratio:2/3;background:#222 center/cover no-repeat}
 .info{padding:9px}
 .info h3{font-size:14px;margin:4px 0}
 .info p{font-size:11px;color:#aaa}
-.watch,.details{
- width:100%;padding:10px;border:0;
- border-radius:4px;font-weight:bold;margin-top:6px
-}
+.watch,.details{width:100%;padding:10px;border:0;border-radius:4px;font-weight:bold;margin-top:6px}
 .watch{background:#d9b45b;color:#111}
 .details{background:#292929;color:white}
-.empty{
- grid-column:1/-1;text-align:center;
- padding:35px;color:#888
-}
-.modal{
- display:none;position:fixed;inset:0;
- background:#000e;z-index:30;
- align-items:center;justify-content:center;
- padding:20px
-}
-.modal-content{
- background:#171717;padding:18px;
- border:1px solid #444;border-radius:12px;
- width:100%;max-width:350px;max-height:85vh;
- overflow:auto
-}
-.modal-content img{
- width:100%;max-height:300px;
- object-fit:cover;border-radius:8px
-}
-.close{
- float:right;background:none;border:0;
- color:white;font-size:25px
-}
-nav{
- position:fixed;bottom:0;left:0;right:0;
- background:#111;border-top:1px solid #333;
- display:flex;justify-content:space-around;
- padding:15px 4px;z-index:20
-}
+.empty{grid-column:1/-1;text-align:center;padding:35px;color:#888}
+.modal{display:none;position:fixed;inset:0;background:#000e;z-index:30;align-items:center;justify-content:center;padding:20px}
+.modal-content{background:#171717;padding:18px;border:1px solid #444;border-radius:12px;width:100%;max-width:390px;max-height:88vh;overflow:auto}
+.modal-content img{width:100%;max-height:300px;object-fit:cover;border-radius:8px}
+.close{float:right;background:none;border:0;color:white;font-size:25px}
+nav{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #333;display:flex;justify-content:space-around;padding:15px 4px;z-index:20}
 nav a{color:#bbb;text-decoration:none;font-size:12px}
 footer{text-align:center;color:#666;padding:25px;font-size:11px}
+.founder-btn{background:transparent;border:1px solid #66552e;color:#d9b45b;padding:8px 10px;border-radius:5px;font-size:11px;font-weight:bold}
+.field{width:100%;padding:12px;margin:7px 0 13px;background:#101010;border:1px solid #444;border-radius:6px;color:white}
+.field-label{font-size:12px;color:#d9b45b}
+.admin-action{width:100%;padding:11px;margin-top:8px;background:#292929;border:1px solid #555;border-radius:5px;color:white;font-weight:bold}
+.small-btn{padding:8px 12px;border:0;border-radius:4px;margin:5px 5px 0 0;font-weight:bold}
+.edit-btn{background:#d9b45b;color:#111}
+.delete-btn{background:#742c2c;color:white}
+.admin-row{padding:12px;margin:10px 0;background:#101010;border:1px solid #333;border-radius:7px}
+.note{font-size:11px;color:#aaa;line-height:1.5}
+.hidden{display:none!important}
 </style>
 </head>
 
@@ -112,7 +57,9 @@ footer{text-align:center;color:#666;padding:25px;font-size:11px}
 
 <header>
  <div class="logo">VYNX CINEMA</div>
- <div style="color:#d9b45b">◉</div>
+ <button id="founderButton" class="founder-btn" onclick="openFounderLogin()">
+ FOUNDER LOGIN
+ </button>
 </header>
 
 <main>
@@ -124,9 +71,7 @@ footer{text-align:center;color:#666;padding:25px;font-size:11px}
 </div>
 
 <section>
- <input class="search" id="search"
- placeholder="⌕ Search movies..."
- oninput="renderMovies()">
+ <input class="search" id="search" placeholder="⌕ Search movies..." oninput="renderMovies()">
 </section>
 
 <div class="categories">
@@ -157,10 +102,88 @@ footer{text-align:center;color:#666;padding:25px;font-size:11px}
  <a href="https://t.me/VynxCinema_Bot">✉ TELEGRAM</a>
 </nav>
 
+<!-- MOVIE DETAILS -->
 <div class="modal" id="movieModal" onclick="closeOutside(event)">
  <div class="modal-content">
-  <button class="close" onclick="closeModal()">×</button>
+  <button class="close" onclick="hideModal('movieModal')">×</button>
   <div id="modalContent"></div>
+ </div>
+</div>
+
+<!-- FOUNDER LOGIN -->
+<div class="modal" id="loginModal" onclick="closeOutside(event)">
+ <div class="modal-content">
+  <button class="close" onclick="hideModal('loginModal')">×</button>
+  <h2>FOUNDER LOGIN</h2>
+  <p class="note">VYNX CINEMA ADMIN ACCESS</p>
+
+  <form onsubmit="founderLogin(event)">
+   <label class="field-label">PASSWORD</label>
+   <input class="field" id="founderPassword"
+    type="password" placeholder="Enter Password" required>
+
+   <p id="loginError" class="note" style="color:#ff7777"></p>
+   <button class="btn" type="submit" style="width:100%">LOGIN</button>
+  </form>
+ </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="modal" id="adminModal">
+ <div class="modal-content">
+  <button class="close" onclick="hideModal('adminModal')">×</button>
+
+  <h2>FOUNDER PANEL</h2>
+  <p class="note">WELCOME TO VYNX CINEMA ADMIN</p>
+
+  <button class="btn" style="width:100%" onclick="newMovieForm()">
+   + ADD NEW MOVIE
+  </button>
+
+  <div id="movieEditor" class="hidden">
+   <h2 id="editorHeading">ADD MOVIE</h2>
+
+   <form onsubmit="saveMovie(event)">
+    <input type="hidden" id="editOriginalId">
+
+    <label class="field-label">MOVIE TITLE</label>
+    <input class="field" id="movieTitle" required>
+
+    <label class="field-label">RELEASE YEAR</label>
+    <input class="field" id="movieYear" type="number" min="1900" max="2100" required>
+
+    <label class="field-label">CATEGORY</label>
+    <select class="field" id="movieCategory">
+     <option value="MOVIE">MOVIE</option>
+     <option value="CARTOON">CARTOON</option>
+     <option value="K-DRAMA">K-DRAMA</option>
+     <option value="SERIES">SERIES</option>
+     <option value="ACTION">ACTION</option>
+    </select>
+
+    <label class="field-label">POSTER IMAGE URL</label>
+    <input class="field" id="moviePoster" type="url" required>
+
+    <label class="field-label">DESCRIPTION</label>
+    <textarea class="field" id="movieDescription" rows="3"></textarea>
+
+    <label class="field-label">TELEGRAM VIDEO ID</label>
+    <input class="field" id="movieVideoId" type="number" min="1" required>
+
+    <button class="btn" type="submit" style="width:100%">SAVE MOVIE</button>
+    <button class="admin-action" type="button" onclick="cancelMovieForm()">CANCEL</button>
+   </form>
+  </div>
+
+  <h2>MOVIE MANAGEMENT</h2>
+  <div id="adminMovieList"></div>
+
+  <button class="admin-action" onclick="founderLogout()">LOG OUT</button>
+
+  <p class="note">
+   Changes are currently saved in this browser only.
+   Shared website updates require a secure database.
+  </p>
  </div>
 </div>
 
@@ -170,166 +193,301 @@ if(window.Telegram && window.Telegram.WebApp){
  Telegram.WebApp.expand();
 }
 
-/*
-==================================
- VYNX CINEMA MOVIE DATABASE
-==================================
-
-ကိုယ်တိုင် Movie အသစ်ထည့်ရန်
-အောက်က movies array ထဲမှာ
-Movie Object အသစ်ထည့်ပါ။
-
-id = Telegram Storage Message ID
-poster = Poster Image URL
-category = MOVIE / CARTOON / K-DRAMA / SERIES / ACTION
-
-*/
-
-const movies = [
-
+/* ORIGINAL MOVIES */
+const defaultMovies = [
  {
-  title:"Real Steel",
-  year:2011,
-  id:12,
-  category:"MOVIE",
+  title:"Real Steel",year:2011,id:12,category:"MOVIE",
   poster:"https://image.tmdb.org/t/p/w500/4GIeI5K5YdDUkR3mNQBoScpSFEf.jpg",
   description:"A story about robots, family and determination."
  },
-
  {
-  title:"Home Alone",
-  year:1990,
-  id:13,
-  category:"MOVIE",
+  title:"Home Alone",year:1990,id:13,category:"MOVIE",
   poster:"https://image.tmdb.org/t/p/w500/onTSipZ8R3bliBdKfPtsDuHTdlL.jpg",
   description:"A young boy discovers an unexpected adventure."
  },
-
  {
-  title:"Forrest Gump",
-  year:1994,
-  id:14,
-  category:"MOVIE",
+  title:"Forrest Gump",year:1994,id:14,category:"MOVIE",
   poster:"https://image.tmdb.org/t/p/w500/arw2vcBveWOVZr6pxd9XTd1TdQa.jpg",
   description:"An extraordinary journey through life."
  },
-
  {
-  title:"The Truman Show",
-  year:1998,
-  id:15,
-  category:"MOVIE",
+  title:"The Truman Show",year:1998,id:15,category:"MOVIE",
   poster:"https://image.tmdb.org/t/p/w500/vuza0WqY239yBXOadKlGwJsZJFE.jpg",
   description:"A man begins questioning the world around him."
  }
-
 ];
 
+let movies=loadMovies();
 let selectedCategory="ALL";
 
+function loadMovies(){
+ try{
+  const saved=localStorage.getItem("vynx_movies");
+  return saved?JSON.parse(saved):defaultMovies.slice();
+ }catch(e){return defaultMovies.slice();}
+}
+
+function persistMovies(){
+ localStorage.setItem("vynx_movies",JSON.stringify(movies));
+}
+
 function goMovies(){
- document.getElementById("movies").scrollIntoView({
-  behavior:"smooth"
- });
+ document.getElementById("movies").scrollIntoView({behavior:"smooth"});
 }
 
 function setCategory(category,button){
  selectedCategory=category;
-
- document.querySelectorAll(".categories button")
- .forEach(b=>b.classList.remove("active"));
-
+ document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
  button.classList.add("active");
  renderMovies();
 }
 
+function escapeHTML(value){
+ return String(value??"").replace(/[&<>"']/g,c=>({
+  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+ })[c]);
+}
+
+function safePoster(value){
+ try{
+  const u=new URL(value);
+  return (u.protocol==="https:"||u.protocol==="http:")?u.href:"";
+ }catch(e){return "";}
+}
+
 function renderMovies(){
+ const query=document.getElementById("search").value.toLowerCase().trim();
 
- const query=document.getElementById("search")
- .value.toLowerCase().trim();
-
- const filtered=movies.filter(m=>{
-  const nameMatch=m.title.toLowerCase().includes(query);
-  const categoryMatch=
-   selectedCategory==="ALL" ||
-   m.category===selectedCategory;
-
-  return nameMatch && categoryMatch;
- });
+ const filtered=movies.filter(m=>
+  (m.title||"").toLowerCase().includes(query)&&
+  (selectedCategory==="ALL"||m.category===selectedCategory)
+ );
 
  const list=document.getElementById("movieList");
 
- if(filtered.length===0){
+ if(!filtered.length){
   list.innerHTML='<div class="empty">NO MOVIES FOUND</div>';
   return;
  }
 
  list.innerHTML=filtered.map(m=>`
   <div class="movie">
-
-   <div class="poster"
-   style="background-image:url('${m.poster}')">
-   </div>
-
+   <div class="poster" style="background-image:url('${escapeHTML(safePoster(m.poster))}')"></div>
    <div class="info">
     <h3>${escapeHTML(m.title)}</h3>
-    <p>📅 ${m.year} · 🎬 ${m.category}</p>
-
-    <button class="details"
-    onclick="showDetails(${m.id})">
-    VIEW DETAILS
-    </button>
-
-    <button class="watch"
-    onclick="watchMovie(${m.id})">
-    ▶ WATCH NOW
-    </button>
-
+    <p>📅 ${escapeHTML(m.year)} · 🎬 ${escapeHTML(m.category)}</p>
+    <button class="details" onclick="showDetails(${Number(m.id)})">VIEW DETAILS</button>
+    <button class="watch" onclick="watchMovie(${Number(m.id)})">▶ WATCH NOW</button>
    </div>
   </div>
  `).join("");
 }
 
-function escapeHTML(value){
- return String(value).replace(/[&<>"']/g,c=>({
-  '&':'&amp;',
-  '<':'&lt;',
-  '>':'&gt;',
-  '"':'&quot;',
-  "'":'&#39;'
- })[c]);
-}
-
 function showDetails(id){
-
- const m=movies.find(x=>x.id===id);
+ const m=movies.find(x=>Number(x.id)===Number(id));
  if(!m)return;
 
+ const poster=safePoster(m.poster);
+
  document.getElementById("modalContent").innerHTML=`
-  <img src="${m.poster}" alt="">
+  ${poster?`<img src="${escapeHTML(poster)}" alt="">`:""}
   <h2>${escapeHTML(m.title)}</h2>
-  <p>📅 ${m.year}</p>
-  <p>🎬 ${m.category}</p>
-  <p style="color:#bbb">${escapeHTML(m.description)}</p>
-  <button class="watch" onclick="watchMovie(${m.id})">
-   ▶ WATCH NOW
-  </button>
+  <p>📅 ${escapeHTML(m.year)}</p>
+  <p>🎬 ${escapeHTML(m.category)}</p>
+  <p style="color:#bbb">${escapeHTML(m.description||"")}</p>
+  <button class="watch" onclick="watchMovie(${Number(m.id)})">▶ WATCH NOW</button>
  `;
 
  document.getElementById("movieModal").style.display="flex";
 }
 
-function closeModal(){
- document.getElementById("movieModal").style.display="none";
+function watchMovie(id){
+ window.location.href=
+ "https://t.me/VynxCinema_Bot?start=video_"+encodeURIComponent(id);
+}
+
+function hideModal(id){
+ document.getElementById(id).style.display="none";
 }
 
 function closeOutside(event){
- if(event.target.id==="movieModal")closeModal();
+ if(event.target.classList.contains("modal")){
+  event.target.style.display="none";
+ }
 }
 
-function watchMovie(id){
- window.location.href=
- "https://t.me/VynxCinema_Bot?start=video_"+id;
+/* FOUNDER LOGIN
+   Temporary password check in front-end only.
+   Do not use this as secure production authentication.
+*/
+const FOUNDER_PASSWORD = `myatminkhant990007.!!!()?_&&$6#$'#7_2:_"'`;
+
+function openFounderLogin(){
+ if(localStorage.getItem("vynx_founder_logged_in")==="yes"){
+  openAdminPanel();
+  return;
+ }
+
+ document.getElementById("loginError").textContent="";
+ document.getElementById("founderPassword").value="";
+ document.getElementById("loginModal").style.display="flex";
+}
+
+function founderLogin(event){
+ event.preventDefault();
+
+ const entered=document.getElementById("founderPassword").value;
+
+ if(entered!==FOUNDER_PASSWORD){
+  document.getElementById("loginError").textContent="Incorrect password!";
+  return;
+ }
+
+ localStorage.setItem("vynx_founder_logged_in","yes");
+
+ hideModal("loginModal");
+ document.getElementById("founderButton").classList.add("hidden");
+
+ openAdminPanel();
+}
+
+function isFounder(){
+ return localStorage.getItem("vynx_founder_logged_in")==="yes";
+}
+
+function openAdminPanel(){
+ if(!isFounder()){
+  openFounderLogin();
+  return;
+ }
+
+ document.getElementById("founderButton").classList.add("hidden");
+ renderAdminMovies();
+ document.getElementById("adminModal").style.display="flex";
+}
+
+function founderLogout(){
+ localStorage.removeItem("vynx_founder_logged_in");
+ document.getElementById("founderButton").classList.remove("hidden");
+ cancelMovieForm();
+ hideModal("adminModal");
+}
+
+function renderAdminMovies(){
+ const box=document.getElementById("adminMovieList");
+
+ if(!movies.length){
+  box.innerHTML='<p class="note">No movies added yet.</p>';
+  return;
+ }
+
+ box.innerHTML=movies.map(m=>`
+  <div class="admin-row">
+   <strong>${escapeHTML(m.title)} (${escapeHTML(m.year)})</strong>
+   <span class="note">Category: ${escapeHTML(m.category)} · Video ID: ${escapeHTML(m.id)}</span><br>
+   <button class="small-btn edit-btn" onclick="editMovie(${Number(m.id)})">EDIT</button>
+   <button class="small-btn delete-btn" onclick="deleteMovie(${Number(m.id)})">DELETE</button>
+  </div>
+ `).join("");
+}
+
+function newMovieForm(){
+ if(!isFounder())return;
+
+ document.getElementById("movieEditor").classList.remove("hidden");
+ document.getElementById("editorHeading").textContent="ADD MOVIE";
+ document.getElementById("editOriginalId").value="";
+ document.getElementById("movieTitle").value="";
+ document.getElementById("movieYear").value=new Date().getFullYear();
+ document.getElementById("movieCategory").value="MOVIE";
+ document.getElementById("moviePoster").value="";
+ document.getElementById("movieDescription").value="";
+ document.getElementById("movieVideoId").value="";
+}
+
+function editMovie(id){
+ if(!isFounder())return;
+
+ const m=movies.find(x=>Number(x.id)===Number(id));
+ if(!m)return;
+
+ document.getElementById("movieEditor").classList.remove("hidden");
+ document.getElementById("editorHeading").textContent="EDIT MOVIE";
+ document.getElementById("editOriginalId").value=m.id;
+ document.getElementById("movieTitle").value=m.title||"";
+ document.getElementById("movieYear").value=m.year||"";
+ document.getElementById("movieCategory").value=m.category||"MOVIE";
+ document.getElementById("moviePoster").value=m.poster||"";
+ document.getElementById("movieDescription").value=m.description||"";
+ document.getElementById("movieVideoId").value=m.id;
+}
+
+function saveMovie(event){
+ event.preventDefault();
+ if(!isFounder())return;
+
+ const oldId=document.getElementById("editOriginalId").value;
+ const id=Number(document.getElementById("movieVideoId").value);
+ const poster=safePoster(document.getElementById("moviePoster").value.trim());
+
+ if(!id||!poster){
+  alert("Enter a valid Video ID and poster URL.");
+  return;
+ }
+
+ const duplicate=movies.some(m=>
+  Number(m.id)===id&&String(m.id)!==String(oldId)
+ );
+
+ if(duplicate){
+  alert("This Video ID is already in use.");
+  return;
+ }
+
+ const movie={
+  title:document.getElementById("movieTitle").value.trim(),
+  year:Number(document.getElementById("movieYear").value),
+  id,
+  category:document.getElementById("movieCategory").value,
+  poster,
+  description:document.getElementById("movieDescription").value.trim()
+ };
+
+ if(oldId!==""){
+  const index=movies.findIndex(m=>String(m.id)===String(oldId));
+  if(index!==-1)movies[index]=movie;
+ }else{
+  movies.unshift(movie);
+ }
+
+ persistMovies();
+ renderMovies();
+ renderAdminMovies();
+ cancelMovieForm();
+}
+
+function deleteMovie(id){
+ if(!isFounder())return;
+
+ const m=movies.find(x=>Number(x.id)===Number(id));
+ if(!m)return;
+
+ if(!confirm(`Delete "${m.title}"?`))return;
+
+ movies=movies.filter(x=>Number(x.id)!==Number(id));
+
+ persistMovies();
+ renderMovies();
+ renderAdminMovies();
+}
+
+function cancelMovieForm(){
+ document.getElementById("movieEditor").classList.add("hidden");
+}
+
+/* Keep founder login hidden on this browser after login */
+if(isFounder()){
+ document.getElementById("founderButton").classList.add("hidden");
 }
 
 renderMovies();
