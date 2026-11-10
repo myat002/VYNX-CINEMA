@@ -10,12 +10,13 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#080808;color:#fff;font-family:Arial,sans-serif}
-header{padding:20px 5%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #292015}
-.logo{font-size:23px;font-weight:900;color:#d6ad55;letter-spacing:2px}
+header{padding:18px 5%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #292015;gap:10px}
+.logo{font-size:22px;font-weight:900;color:#d6ad55;letter-spacing:2px}
 button{cursor:pointer;border:0;border-radius:6px;padding:11px 16px;font-weight:bold}
 .gold{background:#c49a43;color:#080808}
 .dark{background:#252525;color:white}
@@ -47,6 +48,7 @@ main{padding:25px 5%}
 .video-box{width:100%;max-width:850px}
 video{width:100%;max-height:75vh;background:#000}
 footer{text-align:center;padding:30px;color:#777;font-size:12px}
+.message{font-size:13px;line-height:1.5;overflow-wrap:anywhere}
 </style>
 </head>
 
@@ -87,12 +89,15 @@ footer{text-align:center;padding:30px;color:#777;font-size:12px}
  <div class="panel">
   <button class="close" onclick="closeModal('loginModal')">CLOSE</button>
   <h2>FOUNDER LOGIN</h2>
+
   <label class="field-label">EMAIL</label>
-  <input class="field" id="email" type="email" placeholder="Founder email">
+  <input class="field" id="email" type="email" placeholder="Founder email" autocomplete="username">
+
   <label class="field-label">PASSWORD</label>
-  <input class="field" id="password" type="password" placeholder="Password">
-  <button class="gold" onclick="login()">LOGIN</button>
-  <p id="loginMessage"></p>
+  <input class="field" id="password" type="password" placeholder="Password" autocomplete="current-password">
+
+  <button class="gold" id="loginButton" onclick="login()">LOGIN</button>
+  <p id="loginMessage" class="message"></p>
  </div>
 </div>
 
@@ -128,7 +133,7 @@ footer{text-align:center;padding:30px;color:#777;font-size:12px}
   <button class="dark" onclick="resetForm()">CLEAR</button>
   <button class="dark" onclick="logout()">LOGOUT</button>
 
-  <p id="adminMessage"></p>
+  <p id="adminMessage" class="message"></p>
   <hr>
   <h3>MANAGE MOVIES</h3>
   <div id="manageList"></div>
@@ -141,6 +146,7 @@ footer{text-align:center;padding:30px;color:#777;font-size:12px}
   <button class="close" onclick="closeVideo()">CLOSE</button>
   <h2 id="videoTitle">WATCH MOVIE</h2>
   <video id="player" controls playsinline></video>
+  <p id="videoMessage" class="message"></p>
  </div>
 </div>
 
@@ -166,8 +172,35 @@ const FOUNDER_UID = "KrNRoIFmDAPRp7WTx6fQ4gQQhQ32";
 let movies = [];
 let selectedCategory = "ALL";
 let unsubscribe = null;
+let authReady = false;
 
 const $ = id => document.getElementById(id);
+
+// TELEGRAM MINI APP
+if(window.Telegram && window.Telegram.WebApp){
+ const tg = window.Telegram.WebApp;
+ tg.ready();
+ tg.expand();
+}
+
+// AUTH PERSISTENCE
+async function setupAuth(){
+ try{
+  await auth.setPersistence(
+   firebase.auth.Auth.Persistence.LOCAL
+  );
+ }catch(error){
+  try{
+   await auth.setPersistence(
+    firebase.auth.Auth.Persistence.SESSION
+   );
+  }catch(secondError){
+   await auth.setPersistence(
+    firebase.auth.Auth.Persistence.NONE
+   );
+  }
+ }
+}
 
 function isFounder(){
  return !!auth.currentUser &&
@@ -179,7 +212,7 @@ function closeModal(id){
 }
 
 function escapeHTML(value){
- return String(value ?? "").replace(/[&<>"']/g, c => ({
+ return String(value ?? "").replace(/[&<>"']/g,c=>({
   "&":"&amp;",
   "<":"&lt;",
   ">":"&gt;",
@@ -189,7 +222,9 @@ function escapeHTML(value){
 }
 
 // AUTHENTICATION
-auth.onAuthStateChanged(async user => {
+auth.onAuthStateChanged(async user=>{
+ authReady = true;
+
  const allowed = !!user && user.uid === FOUNDER_UID;
 
  $("founderBtn").classList.toggle("hidden",allowed);
@@ -207,58 +242,136 @@ auth.onAuthStateChanged(async user => {
  }
 });
 
+// LOGIN
 async function login(){
+
+ if(!authReady){
+  $("loginMessage").textContent =
+   "Please wait. Firebase is initializing...";
+  return;
+ }
+
  const email = $("email").value.trim();
  const password = $("password").value;
 
- $("loginMessage").textContent = "Signing in...";
+ if(!email || !password){
+  $("loginMessage").textContent =
+   "Please enter your email and password.";
+  return;
+ }
+
+ $("loginButton").disabled = true;
+ $("loginMessage").textContent = "Connecting to Firebase...";
 
  try{
-  const result = await auth.signInWithEmailAndPassword(email,password);
+
+  await setupAuth();
+
+  const result = await auth.signInWithEmailAndPassword(
+   email,
+   password
+  );
 
   if(result.user.uid !== FOUNDER_UID){
    await auth.signOut();
    throw new Error("This account is not the founder.");
   }
 
-  closeModal("loginModal");
   $("loginMessage").textContent = "";
+  $("password").value = "";
+
+  closeModal("loginModal");
   openAdmin();
+
  }catch(error){
-  $("loginMessage").textContent = error.message;
+
+  const messages = {
+   "auth/network-request-failed":
+    "Network connection failed. Check internet and try again.",
+
+   "auth/invalid-credential":
+    "Email or password is incorrect. Check Firebase account.",
+
+   "auth/user-not-found":
+    "No Firebase account found for this email.",
+
+   "auth/wrong-password":
+    "Incorrect password. Reset it in Firebase.",
+
+   "auth/invalid-email":
+    "Please enter a valid email address.",
+
+   "auth/unauthorized-domain":
+    "Add myat002.github.io to Firebase Authorized Domains.",
+
+   "auth/too-many-requests":
+    "Too many attempts. Please wait and try again.",
+
+   "auth/operation-not-allowed":
+    "Enable Email/Password sign-in in Firebase Authentication."
+  };
+
+  $("loginMessage").textContent =
+   messages[error.code] ||
+   (error.code || "Error") + ": " + error.message;
+
+ }finally{
+  $("loginButton").disabled = false;
  }
 }
 
+// LOGOUT
 async function logout(){
- await auth.signOut();
- closeModal("adminModal");
+ try{
+  await auth.signOut();
+  closeModal("adminModal");
+ }catch(error){
+  alert(error.message);
+ }
 }
 
 // MOVIE DATABASE
 function startMovies(){
+
  if(unsubscribe) unsubscribe();
+
+ $("empty").textContent = "Loading movies...";
 
  unsubscribe = db.collection("movies")
  .orderBy("createdAt","desc")
- .onSnapshot(snapshot => {
-  movies = snapshot.docs.map(doc => ({
+ .onSnapshot(snapshot=>{
+
+  movies = snapshot.docs.map(doc=>({
    id:doc.id,
    ...doc.data()
   }));
+
   renderMovies();
-  if(isFounder()) loadManageList();
- },error => {
-  $("empty").textContent = "Unable to load movies. Check Firebase settings.";
+
+  if(isFounder()){
+   loadManageList();
+  }
+
+ },error=>{
+
+  $("empty").textContent =
+   "Unable to load movies: " + error.message;
+
  });
 }
 
+// RENDER MOVIES
 function renderMovies(){
+
  const query = $("search").value.toLowerCase();
 
- const filtered = movies.filter(m => {
+ const filtered = movies.filter(m=>{
+
   const category = m.category || "MOVIES";
+
   const matchCategory =
-   selectedCategory === "ALL" || category === selectedCategory;
+   selectedCategory === "ALL" ||
+   category === selectedCategory;
 
   const matchSearch =
    (m.title || "").toLowerCase().includes(query);
@@ -266,82 +379,123 @@ function renderMovies(){
   return matchCategory && matchSearch;
  });
 
- $("movieList").innerHTML = filtered.map(m => `
+ $("movieList").innerHTML = filtered.map(m=>`
+
   <article class="movie">
+
    <img class="poster"
-    src="${escapeHTML(m.posterUrl)}"
+    src="${escapeHTML(m.posterUrl || "")}"
     alt="${escapeHTML(m.title)}"
     onerror="this.style.visibility='hidden'">
 
    <div class="movie-info">
+
     <h3>${escapeHTML(m.title)}</h3>
-    <p>${escapeHTML(m.year)} · ${escapeHTML(m.category)}</p>
-    <button class="gold" onclick="watchMovie('${m.id}')">
+
+    <p>
+     ${escapeHTML(m.year)} ·
+     ${escapeHTML(m.category || "MOVIES")}
+    </p>
+
+    <button class="gold"
+     onclick="watchMovie('${m.id}')">
      WATCH MOVIE
     </button>
+
    </div>
   </article>
+
  `).join("");
 
- $("empty").classList.toggle("hidden",filtered.length > 0);
+ $("empty").classList.toggle(
+  "hidden",
+  filtered.length > 0
+ );
 }
 
 $("search").addEventListener("input",renderMovies);
 
-$("categories").addEventListener("click",e => {
+// CATEGORY FILTER
+$("categories").addEventListener("click",e=>{
+
  const btn = e.target.closest("button[data-cat]");
+
  if(!btn) return;
 
  selectedCategory = btn.dataset.cat;
 
  document.querySelectorAll(".categories button")
- .forEach(b => b.classList.remove("active"));
+ .forEach(b=>b.classList.remove("active"));
 
  btn.classList.add("active");
+
  renderMovies();
 });
 
 // VIDEO PLAYER
 function watchMovie(id){
- const movie = movies.find(m => m.id === id);
+
+ const movie = movies.find(m=>m.id===id);
+
  if(!movie) return;
 
+ if(!movie.videoUrl){
+  alert("Video URL not found.");
+  return;
+ }
+
  $("videoTitle").textContent = movie.title;
+ $("videoMessage").textContent = "";
+
  const player = $("player");
+
  player.src = movie.videoUrl;
+
  $("videoModal").classList.remove("hidden");
+
  player.load();
 }
 
 function closeVideo(){
+
  const player = $("player");
+
  player.pause();
  player.removeAttribute("src");
  player.load();
+
  closeModal("videoModal");
 }
 
-// ADMIN
+// ADMIN PANEL
 function openAdmin(){
+
  if(!isFounder()){
   $("loginModal").classList.remove("hidden");
   return;
  }
 
  $("adminModal").classList.remove("hidden");
+
  loadManageList();
 }
 
+// RESET FORM
 function resetForm(){
+
  $("editId").value = "";
  $("title").value = "";
  $("year").value = "";
  $("category").value = "MOVIES";
  $("poster").value = "";
  $("video").value = "";
+
+ $("adminMessage").textContent = "";
 }
 
+// SAVE MOVIE
 async function saveMovie(){
+
  if(!isFounder()){
   alert("Founder access required.");
   return;
@@ -355,53 +509,96 @@ async function saveMovie(){
  const editId = $("editId").value;
 
  if(!title || !posterUrl || !videoUrl){
-  $("adminMessage").textContent = "Fill in all required fields.";
+  $("adminMessage").textContent =
+   "Please fill in all required fields.";
   return;
  }
 
+ if(!/^https?:\/\//i.test(posterUrl) ||
+    !/^https?:\/\//i.test(videoUrl)){
+  $("adminMessage").textContent =
+   "Enter valid HTTP or HTTPS URLs.";
+  return;
+ }
+
+ $("adminMessage").textContent = "Saving...";
+
  try{
+
   const data = {
    title,
    year,
    posterUrl,
    videoUrl,
    category,
-   updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+   updatedAt:
+    firebase.firestore.FieldValue.serverTimestamp()
   };
 
   if(editId){
-   await db.collection("movies").doc(editId).update(data);
+
+   await db.collection("movies")
+    .doc(editId)
+    .update(data);
+
   }else{
+
    data.createdAt =
     firebase.firestore.FieldValue.serverTimestamp();
 
    await db.collection("movies").add(data);
+
   }
 
-  $("adminMessage").textContent = "Movie saved successfully.";
+  $("adminMessage").textContent =
+   "Movie saved successfully.";
+
   resetForm();
+
  }catch(error){
-  $("adminMessage").textContent = error.message;
+
+  $("adminMessage").textContent =
+   "Save failed: " + error.message;
+
  }
 }
 
+// MANAGE MOVIES
 function loadManageList(){
+
  if(!isFounder()) return;
 
- $("manageList").innerHTML = movies.map(m => `
+ $("manageList").innerHTML = movies.map(m=>`
+
   <div style="padding:12px;border-bottom:1px solid #444">
+
    <b>${escapeHTML(m.title)}</b>
+
    <br><br>
-   <button class="gold" onclick="editMovie('${m.id}')">EDIT</button>
-   <button class="dark" onclick="deleteMovie('${m.id}')">DELETE</button>
+
+   <button class="gold"
+    onclick="editMovie('${m.id}')">
+    EDIT
+   </button>
+
+   <button class="dark"
+    onclick="deleteMovie('${m.id}')">
+    DELETE
+   </button>
+
   </div>
+
  `).join("");
+
 }
 
+// EDIT MOVIE
 function editMovie(id){
+
  if(!isFounder()) return;
 
- const m = movies.find(x => x.id === id);
+ const m = movies.find(x=>x.id===id);
+
  if(!m) return;
 
  $("editId").value = m.id;
@@ -411,27 +608,41 @@ function editMovie(id){
  $("poster").value = m.posterUrl || "";
  $("video").value = m.videoUrl || "";
 
- $("adminMessage").textContent = "Editing: " + m.title;
+ $("adminMessage").textContent =
+  "Editing: " + m.title;
+
 }
 
+// DELETE MOVIE
 async function deleteMovie(id){
+
  if(!isFounder()) return;
+
  if(!confirm("Delete this movie?")) return;
 
  try{
-  await db.collection("movies").doc(id).delete();
+
+  await db.collection("movies")
+   .doc(id)
+   .delete();
+
  }catch(error){
+
   alert(error.message);
+
  }
 }
 
-$("founderBtn").onclick = () => {
+// BUTTONS
+$("founderBtn").onclick = ()=>{
  $("loginModal").classList.remove("hidden");
 };
 
 $("adminBtn").onclick = openAdmin;
 
+// START
 startMovies();
+
 </script>
 
 </body>
