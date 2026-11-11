@@ -1,327 +1,109 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="my">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#080808">
 <title>VYNX CINEMA</title>
-
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;500;600;700&family=DM+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
 body{
- margin:0;background:#080808;color:white;
- font-family:Arial,sans-serif;
+min-height:100vh;
+background:radial-gradient(ellipse at 50% 0%,#382912 0%,transparent 48%),#080808;
+color:#fff;
+font-family:'Noto Sans Myanmar',sans-serif;
+display:flex;align-items:center;justify-content:center;
+padding:25px 16px;
 }
-header{
- padding:22px 5%;
- border-bottom:1px solid #49391e;
- display:flex;justify-content:space-between;
-}
+.container{width:100%;max-width:520px}
+header{text-align:center;margin-bottom:35px}
 .logo{
- color:#d6ad55;font-size:24px;
- font-weight:900;letter-spacing:3px;
+width:85px;height:85px;margin:0 auto 20px;
+border:2px solid #d9ad55;border-radius:24px;
+display:grid;place-items:center;
+font:800 32px 'DM Sans',sans-serif;color:#ffe2a0;
+background:linear-gradient(145deg,#302311,#101010);
+box-shadow:0 0 35px #d9ad5530;
 }
-main{max-width:1100px;width:92%;margin:25px auto}
-.hero{
- padding:35px 22px;
- border:1px solid #69502a;
- border-radius:12px;
- background:linear-gradient(120deg,#30220d,#090909);
-}
-.hero h1{color:#e4bd68;font-size:35px}
-.hero p{color:#bbb}
-.actions{
- display:grid;grid-template-columns:1fr 1fr;
- gap:12px;margin:24px 0;
-}
-.actions a{
- padding:17px;text-align:center;
- text-decoration:none;font-weight:bold;
- border-radius:8px;
-}
-.premium{background:#c49a43;color:black}
-.shows{border:1px solid #c49a43;color:#e4bd68}
-.tabs{
- display:flex;gap:10px;flex-wrap:wrap;
- margin:25px 0;
-}
-.tabs button{
- padding:11px 15px;border-radius:20px;
- border:1px solid #444;background:#171717;
- color:white;
-}
-.tabs button.active{
- background:#c49a43;color:black;
-}
-h2{color:#d6ad55}
-.status{color:#999;font-size:12px;margin:12px 0}
-.feed{
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
- gap:15px;
-}
+.small{color:#d9ad55;font:700 11px 'DM Sans',sans-serif;letter-spacing:5px}
+h1{font:800 36px 'DM Sans',sans-serif;letter-spacing:2px;margin-top:8px}
+.subtitle{color:#aaa;font:11px 'DM Sans',sans-serif;letter-spacing:3px;margin-top:10px}
+.line{width:80px;height:2px;background:linear-gradient(90deg,transparent,#d9ad55,transparent);margin:25px auto 0}
+.section{text-align:center;color:#b5a17b;font:700 10px 'DM Sans',sans-serif;letter-spacing:3px;margin-bottom:16px}
+.links{display:grid;gap:15px}
 .card{
- background:#171717;border:1px solid #333;
- border-radius:10px;overflow:hidden;
+display:flex;align-items:center;gap:14px;
+min-height:92px;padding:17px 15px;
+text-decoration:none;color:white;
+border-radius:18px;border:1px solid #c49b4b55;
+background:linear-gradient(120deg,#251d10,#111);
+transition:.2s;
 }
-.card h3{padding:12px;margin:0;color:#e4bd68}
-.embed{padding:8px;background:#090909}
-.embed iframe{max-width:100%!important}
-.open{
- display:block;padding:13px;
- color:#d6ad55;text-decoration:none;
- border-top:1px solid #333;
+.card:hover{transform:translateY(-3px);border-color:#e8c477;box-shadow:0 8px 25px #d9ad5520}
+.vip{border-color:#d9ad55;background:linear-gradient(120deg,#493314,#17130d)}
+.icon{
+width:49px;height:49px;flex-shrink:0;
+display:grid;place-items:center;
+border-radius:14px;background:#d9ad5518;
+border:1px solid #d9ad5540;color:#ffdc91;font-size:23px;
 }
-.empty{
- padding:35px;text-align:center;
- color:#888;border:1px dashed #444;
-}
-footer{text-align:center;color:#777;padding:30px}
-@media(max-width:500px){
- .actions{grid-template-columns:1fr}
-}
+.info{flex:1;min-width:0}
+.name{font-size:13px;line-height:1.9;font-weight:700}
+.desc{color:#a99c80;font:9px 'DM Sans',sans-serif;letter-spacing:1px;margin-top:5px}
+.arrow{color:#e7bd65;font-size:25px}
+footer{text-align:center;margin-top:35px;color:#777;font:10px 'DM Sans',sans-serif;letter-spacing:3px}
+footer span{color:#d9ad55}
+@media(max-width:380px){h1{font-size:30px}.name{font-size:12px}}
 </style>
 </head>
-
 <body>
+<main class="container">
 
 <header>
- <div class="logo">VYNX CINEMA</div>
- <span style="color:#aaa;font-size:11px">OFFICIAL</span>
+<div class="logo">VC</div>
+<div class="small">WELCOME TO</div>
+<h1>VYNX CINEMA</h1>
+<div class="subtitle">YOUR ENTERTAINMENT HUB</div>
+<div class="line"></div>
 </header>
 
-<main>
+<div class="section">EXPLORE OUR CHANNELS</div>
 
-<section class="hero">
- <h1>VYNX CINEMA</h1>
- <p>RELIVE YOUR MEMORIES</p>
- <p>Your favourite movies and series in one place.</p>
-</section>
+<div class="links">
 
-<div class="actions">
- <a href="#" class="premium" id="premium">
- JOIN PREMIUM
- </a>
+<a class="card vip" href="http://t.me/VIP_FOR_VYNX_CINEMA_bot" target="_blank" rel="noopener noreferrer">
+<div class="icon">♛</div>
+<div class="info">
+<div class="name">VIP JOIN ရန် နှိပ်ပါ</div>
+<div class="desc">JOIN VIP · PREMIUM ACCESS</div>
+</div>
+<div class="arrow">›</div>
+</a>
 
- <a href="#video-shows" class="shows">
- VIDEO SHOWS
- </a>
+<a class="card" href="https://t.me/childhoodmemoreis35" target="_blank" rel="noopener noreferrer">
+<div class="icon">▶</div>
+<div class="info">
+<div class="name">ငယ်ဘဝက CARTOON ကားများ ကြည့်ရန်</div>
+<div class="desc">CHILDHOOD CARTOON COLLECTION</div>
+</div>
+<div class="arrow">›</div>
+</a>
+
+<a class="card" href="https://t.me/+qm5M6JqOnDQwYWI1" target="_blank" rel="noopener noreferrer">
+<div class="icon">✦</div>
+<div class="info">
+<div class="name">GAME ကောင်းများစွာနှင့် Minecraft Addon များ Download လုပ်ရန်</div>
+<div class="desc">GAMES · MINECRAFT ADDONS</div>
+</div>
+<div class="arrow">›</div>
+</a>
+
 </div>
 
-<div class="tabs">
- <button class="active" data-tab="posts">
- LATEST POSTS
- </button>
-
- <button data-tab="videos">
- VIDEO SHOWS
- </button>
-</div>
-
-<section id="posts-section">
- <h2>LATEST POSTS</h2>
- <div class="status" id="postStatus">
- Loading posts...
- </div>
- <div class="feed" id="posts"></div>
-</section>
-
-<section id="videos-section" hidden>
- <h2 id="video-shows">VIDEO SHOWS</h2>
- <div class="status" id="videoStatus">
- Loading videos...
- </div>
- <div class="feed" id="videos"></div>
-</section>
+<footer>VYNX CINEMA <span>•</span> OFFICIAL</footer>
 
 </main>
-
-<footer>VYNX CINEMA · OFFICIAL</footer>
-
-<script>
-
-// CHANNEL SETTINGS
-const POST_CHANNEL = "movieworld089";
-const STORAGE_CHANNEL = "moviestorage09";
-
-// PREMIUM LINK
-// နောက်မှ Link ထည့်နိုင်သည်
-const PREMIUM_LINK = "";
-
-// RSS FEED
-const RSS_URL =
-"https://rsshub.app/telegram/channel/";
-
-// SAFE TEXT
-function safe(text){
- return String(text || "").replace(/[&<>"']/g,c=>({
- "&":"&amp;",
- "<":"&lt;",
- ">":"&gt;",
- '"':"&quot;",
- "'":"&#39;"
- }[c]));
-}
-
-// LOAD CHANNEL POSTS
-async function loadChannel(channel,target,status){
-
- const box=document.getElementById(target);
- const message=document.getElementById(status);
-
- message.textContent="Loading channel posts...";
-
- try{
-
-  const response=await fetch(
-   RSS_URL+channel,
-   {cache:"no-store"}
-  );
-
-  if(!response.ok) throw Error("Feed unavailable");
-
-  const xml=new DOMParser().parseFromString(
-   await response.text(),
-   "text/xml"
-  );
-
-  if(xml.querySelector("parsererror"))
-   throw Error("Invalid feed");
-
-  const items=[...xml.querySelectorAll("item")];
-
-  box.innerHTML="";
-
-  if(!items.length){
-   box.innerHTML='<div class="empty">No posts available.</div>';
-   return;
-  }
-
-  items.forEach(item=>{
-
-   const link=item.querySelector("link")?.textContent.trim() || "";
-
-   const match=link.match(/t\.me\/(?:s\/)?[^/]+\/(\d+)/);
-
-   const id=match ? match[1] : null;
-
-   const title=item.querySelector("title")?.textContent || "Telegram Post";
-
-   const card=document.createElement("article");
-   card.className="card";
-
-   const heading=document.createElement("h3");
-   heading.textContent=title;
-
-   const embed=document.createElement("div");
-   embed.className="embed";
-
-   if(id){
-
-    const script=document.createElement("script");
-
-    script.async=true;
-
-    script.src=
-    "https://telegram.org/js/telegram-widget.js?22";
-
-    script.setAttribute(
-     "data-telegram-post",
-     channel+"/"+id
-    );
-
-    script.setAttribute("data-width","100%");
-
-    embed.appendChild(script);
-
-   }else{
-    embed.textContent="Open original Telegram post.";
-   }
-
-   const open=document.createElement("a");
-   open.className="open";
-   open.href=link || "https://t.me/"+channel;
-   open.target="_blank";
-   open.rel="noopener";
-   open.textContent="OPEN ON TELEGRAM ↗";
-
-   card.append(heading,embed,open);
-
-   box.appendChild(card);
-
-  });
-
-  message.textContent=
-  items.length+" recent posts loaded.";
-
- }catch(error){
-
-  message.textContent="Channel feed unavailable.";
-
-  box.innerHTML=
-  '<div class="empty">Unable to load posts automatically. '+
-  '<a style="color:#d6ad55" href="https://t.me/'+
-  channel+'" target="_blank">Open Channel</a></div>';
-
- }
-}
-
-// TAB SWITCH
-document.querySelectorAll(".tabs button")
-.forEach(button=>{
-
- button.addEventListener("click",()=>{
-
-  document.querySelectorAll(".tabs button")
-  .forEach(b=>b.classList.remove("active"));
-
-  button.classList.add("active");
-
-  const videos=button.dataset.tab==="videos";
-
-  document.getElementById("posts-section").hidden=videos;
-  document.getElementById("videos-section").hidden=!videos;
-
- });
-
-});
-
-// PREMIUM
-document.getElementById("premium")
-.addEventListener("click",event=>{
-
- if(!PREMIUM_LINK){
-  event.preventDefault();
-  alert("JOIN PREMIUM — COMING SOON");
- }else{
-  event.currentTarget.href=PREMIUM_LINK;
- }
-
-});
-
-// START
-function refresh(){
-
- loadChannel(
-  POST_CHANNEL,
-  "posts",
-  "postStatus"
- );
-
- loadChannel(
-  STORAGE_CHANNEL,
-  "videos",
-  "videoStatus"
- );
-
-}
-
-refresh();
-
-// AUTO REFRESH EVERY 5 MINUTES
-setInterval(refresh,300000);
-
-</script>
 </body>
 </html>
