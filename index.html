@@ -7,48 +7,80 @@
 <meta name="theme-color" content="#080808">
 <title>VYNX CINEMA</title>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#080808;color:#fff;font-family:Arial,sans-serif}
-header{padding:18px 5%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #292015;gap:10px}
-.logo{font-size:22px;font-weight:900;color:#d6ad55;letter-spacing:2px}
-button{cursor:pointer;border:0;border-radius:6px;padding:11px 16px;font-weight:bold}
-.gold{background:#c49a43;color:#080808}
-.dark{background:#252525;color:white}
-main{padding:25px 5%}
-.hero{padding:35px 22px;background:linear-gradient(120deg,#211a0e,#090909);border:1px solid #4c3b1d;border-radius:12px}
-.hero h1{color:#e4bd68;font-size:34px;margin:0 0 10px}
+body{
+ margin:0;background:#080808;color:white;
+ font-family:Arial,sans-serif;
+}
+header{
+ padding:22px 5%;
+ border-bottom:1px solid #49391e;
+ display:flex;justify-content:space-between;
+}
+.logo{
+ color:#d6ad55;font-size:24px;
+ font-weight:900;letter-spacing:3px;
+}
+main{max-width:1100px;width:92%;margin:25px auto}
+.hero{
+ padding:35px 22px;
+ border:1px solid #69502a;
+ border-radius:12px;
+ background:linear-gradient(120deg,#30220d,#090909);
+}
+.hero h1{color:#e4bd68;font-size:35px}
 .hero p{color:#bbb}
-.search{width:100%;padding:14px;background:#171717;border:1px solid #393939;border-radius:7px;color:white;margin:22px 0}
-.categories{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:25px}
-.categories button{background:#202020;color:#ddd}
-.categories button.active{background:#c49a43;color:#000}
-.section-title{color:#d8b45e;margin:20px 0}
-.movies{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:16px}
-.movie{background:#151515;border:1px solid #292929;border-radius:9px;overflow:hidden}
-.poster{width:100%;aspect-ratio:2/3;object-fit:cover;background:#222}
-.movie-info{padding:11px}
-.movie-info h3{font-size:14px;margin:0 0 8px}
-.movie-info p{font-size:12px;color:#aaa}
-.movie-info button{width:100%;margin-top:5px}
-.empty{color:#888;text-align:center;padding:50px 10px}
-.hidden{display:none!important}
-.modal{position:fixed;inset:0;background:#000e;z-index:10;display:flex;align-items:center;justify-content:center;padding:15px}
-.panel{background:#171717;border:1px solid #765d2c;border-radius:12px;padding:22px;width:100%;max-width:430px;max-height:90vh;overflow:auto}
-.panel h2{color:#dfb95f}
-.field{width:100%;padding:13px;margin:7px 0 14px;background:#090909;color:white;border:1px solid #444;border-radius:6px}
-.field-label{font-size:12px;color:#bbb}
-.panel button{margin:4px 3px 4px 0}
-.close{float:right;background:#333;color:white}
-.video-box{width:100%;max-width:850px}
-video{width:100%;max-height:75vh;background:#000}
-footer{text-align:center;padding:30px;color:#777;font-size:12px}
-.message{font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+.actions{
+ display:grid;grid-template-columns:1fr 1fr;
+ gap:12px;margin:24px 0;
+}
+.actions a{
+ padding:17px;text-align:center;
+ text-decoration:none;font-weight:bold;
+ border-radius:8px;
+}
+.premium{background:#c49a43;color:black}
+.shows{border:1px solid #c49a43;color:#e4bd68}
+.tabs{
+ display:flex;gap:10px;flex-wrap:wrap;
+ margin:25px 0;
+}
+.tabs button{
+ padding:11px 15px;border-radius:20px;
+ border:1px solid #444;background:#171717;
+ color:white;
+}
+.tabs button.active{
+ background:#c49a43;color:black;
+}
+h2{color:#d6ad55}
+.status{color:#999;font-size:12px;margin:12px 0}
+.feed{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+ gap:15px;
+}
+.card{
+ background:#171717;border:1px solid #333;
+ border-radius:10px;overflow:hidden;
+}
+.card h3{padding:12px;margin:0;color:#e4bd68}
+.embed{padding:8px;background:#090909}
+.embed iframe{max-width:100%!important}
+.open{
+ display:block;padding:13px;
+ color:#d6ad55;text-decoration:none;
+ border-top:1px solid #333;
+}
+.empty{
+ padding:35px;text-align:center;
+ color:#888;border:1px dashed #444;
+}
+footer{text-align:center;color:#777;padding:30px}
+@media(max-width:500px){
+ .actions{grid-template-columns:1fr}
+}
 </style>
 </head>
 
@@ -56,594 +88,240 @@ footer{text-align:center;padding:30px;color:#777;font-size:12px}
 
 <header>
  <div class="logo">VYNX CINEMA</div>
- <button class="gold" id="founderBtn">FOUNDER LOGIN</button>
- <button class="gold hidden" id="adminBtn">ADMIN PANEL</button>
+ <span style="color:#aaa;font-size:11px">OFFICIAL</span>
 </header>
 
 <main>
- <section class="hero">
-  <h1>VYNX CINEMA</h1>
-  <p>RELIVE YOUR MEMORIES</p>
-  <p>Your favourite movies and series in one place.</p>
- </section>
 
- <input class="search" id="search" placeholder="Search movies and series...">
+<section class="hero">
+ <h1>VYNX CINEMA</h1>
+ <p>RELIVE YOUR MEMORIES</p>
+ <p>Your favourite movies and series in one place.</p>
+</section>
 
- <div class="categories" id="categories">
-  <button class="active" data-cat="ALL">ALL</button>
-  <button data-cat="MOVIES">MOVIES</button>
-  <button data-cat="CARTOONS">CARTOONS</button>
-  <button data-cat="K-DRAMA">K-DRAMA</button>
-  <button data-cat="SERIES">SERIES</button>
+<div class="actions">
+ <a href="#" class="premium" id="premium">
+ JOIN PREMIUM
+ </a>
+
+ <a href="#video-shows" class="shows">
+ VIDEO SHOWS
+ </a>
+</div>
+
+<div class="tabs">
+ <button class="active" data-tab="posts">
+ LATEST POSTS
+ </button>
+
+ <button data-tab="videos">
+ VIDEO SHOWS
+ </button>
+</div>
+
+<section id="posts-section">
+ <h2>LATEST POSTS</h2>
+ <div class="status" id="postStatus">
+ Loading posts...
  </div>
+ <div class="feed" id="posts"></div>
+</section>
 
- <h3 class="section-title">LATEST VIDEOS</h3>
- <div class="movies" id="movieList"></div>
- <div class="empty" id="empty">No movies available yet.</div>
+<section id="videos-section" hidden>
+ <h2 id="video-shows">VIDEO SHOWS</h2>
+ <div class="status" id="videoStatus">
+ Loading videos...
+ </div>
+ <div class="feed" id="videos"></div>
+</section>
+
 </main>
 
 <footer>VYNX CINEMA · OFFICIAL</footer>
 
-<!-- FOUNDER LOGIN -->
-<div class="modal hidden" id="loginModal">
- <div class="panel">
-  <button class="close" onclick="closeModal('loginModal')">CLOSE</button>
-  <h2>FOUNDER LOGIN</h2>
-
-  <label class="field-label">EMAIL</label>
-  <input class="field" id="email" type="email" placeholder="Founder email" autocomplete="username">
-
-  <label class="field-label">PASSWORD</label>
-  <input class="field" id="password" type="password" placeholder="Password" autocomplete="current-password">
-
-  <button class="gold" id="loginButton" onclick="login()">LOGIN</button>
-  <p id="loginMessage" class="message"></p>
- </div>
-</div>
-
-<!-- ADMIN PANEL -->
-<div class="modal hidden" id="adminModal">
- <div class="panel">
-  <button class="close" onclick="closeModal('adminModal')">CLOSE</button>
-  <h2>FOUNDER DASHBOARD</h2>
-
-  <input type="hidden" id="editId">
-
-  <label class="field-label">MOVIE TITLE</label>
-  <input class="field" id="title" placeholder="Movie title">
-
-  <label class="field-label">RELEASE YEAR</label>
-  <input class="field" id="year" type="number" placeholder="2026">
-
-  <label class="field-label">CATEGORY</label>
-  <select class="field" id="category">
-   <option value="MOVIES">MOVIES</option>
-   <option value="CARTOONS">CARTOONS</option>
-   <option value="K-DRAMA">K-DRAMA</option>
-   <option value="SERIES">SERIES</option>
-  </select>
-
-  <label class="field-label">POSTER IMAGE URL</label>
-  <input class="field" id="poster" placeholder="https://example.com/poster.jpg">
-
-  <label class="field-label">VIDEO URL</label>
-  <input class="field" id="video" placeholder="Direct video URL">
-
-  <button class="gold" onclick="saveMovie()">SAVE MOVIE</button>
-  <button class="dark" onclick="resetForm()">CLEAR</button>
-  <button class="dark" onclick="logout()">LOGOUT</button>
-
-  <p id="adminMessage" class="message"></p>
-  <hr>
-  <h3>MANAGE MOVIES</h3>
-  <div id="manageList"></div>
- </div>
-</div>
-
-<!-- VIDEO PLAYER -->
-<div class="modal hidden" id="videoModal">
- <div class="panel video-box">
-  <button class="close" onclick="closeVideo()">CLOSE</button>
-  <h2 id="videoTitle">WATCH MOVIE</h2>
-  <video id="player" controls playsinline></video>
-  <p id="videoMessage" class="message"></p>
- </div>
-</div>
-
 <script>
-// FIREBASE CONFIGURATION
-const firebaseConfig = {
- apiKey: "AIzaSyBnO5ooSZabq5rfXig4k4wJUCtuYoDFupU",
- authDomain: "childhood-memories-a24c0.firebaseapp.com",
- projectId: "childhood-memories-a24c0",
- storageBucket: "childhood-memories-a24c0.firebasestorage.app",
- messagingSenderId: "708149198034",
- appId: "1:708149198034:web:251016911cdac126c7c10b",
- measurementId: "G-LZ5CYW1ZS9"
-};
 
-firebase.initializeApp(firebaseConfig);
+// CHANNEL SETTINGS
+const POST_CHANNEL = "movieworld089";
+const STORAGE_CHANNEL = "moviestorage09";
 
-const auth = firebase.auth();
-const db = firebase.firestore();
+// PREMIUM LINK
+// နောက်မှ Link ထည့်နိုင်သည်
+const PREMIUM_LINK = "";
 
-const FOUNDER_UID = "KrNRoIFmDAPRp7WTx6fQ4gQQhQ32";
+// RSS FEED
+const RSS_URL =
+"https://rsshub.app/telegram/channel/";
 
-let movies = [];
-let selectedCategory = "ALL";
-let unsubscribe = null;
-let authReady = false;
-
-const $ = id => document.getElementById(id);
-
-// TELEGRAM MINI APP
-if(window.Telegram && window.Telegram.WebApp){
- const tg = window.Telegram.WebApp;
- tg.ready();
- tg.expand();
+// SAFE TEXT
+function safe(text){
+ return String(text || "").replace(/[&<>"']/g,c=>({
+ "&":"&amp;",
+ "<":"&lt;",
+ ">":"&gt;",
+ '"':"&quot;",
+ "'":"&#39;"
+ }[c]));
 }
 
-// AUTH PERSISTENCE
-async function setupAuth(){
+// LOAD CHANNEL POSTS
+async function loadChannel(channel,target,status){
+
+ const box=document.getElementById(target);
+ const message=document.getElementById(status);
+
+ message.textContent="Loading channel posts...";
+
  try{
-  await auth.setPersistence(
-   firebase.auth.Auth.Persistence.LOCAL
+
+  const response=await fetch(
+   RSS_URL+channel,
+   {cache:"no-store"}
   );
- }catch(error){
-  try{
-   await auth.setPersistence(
-    firebase.auth.Auth.Persistence.SESSION
-   );
-  }catch(secondError){
-   await auth.setPersistence(
-    firebase.auth.Auth.Persistence.NONE
-   );
+
+  if(!response.ok) throw Error("Feed unavailable");
+
+  const xml=new DOMParser().parseFromString(
+   await response.text(),
+   "text/xml"
+  );
+
+  if(xml.querySelector("parsererror"))
+   throw Error("Invalid feed");
+
+  const items=[...xml.querySelectorAll("item")];
+
+  box.innerHTML="";
+
+  if(!items.length){
+   box.innerHTML='<div class="empty">No posts available.</div>';
+   return;
   }
+
+  items.forEach(item=>{
+
+   const link=item.querySelector("link")?.textContent.trim() || "";
+
+   const match=link.match(/t\.me\/(?:s\/)?[^/]+\/(\d+)/);
+
+   const id=match ? match[1] : null;
+
+   const title=item.querySelector("title")?.textContent || "Telegram Post";
+
+   const card=document.createElement("article");
+   card.className="card";
+
+   const heading=document.createElement("h3");
+   heading.textContent=title;
+
+   const embed=document.createElement("div");
+   embed.className="embed";
+
+   if(id){
+
+    const script=document.createElement("script");
+
+    script.async=true;
+
+    script.src=
+    "https://telegram.org/js/telegram-widget.js?22";
+
+    script.setAttribute(
+     "data-telegram-post",
+     channel+"/"+id
+    );
+
+    script.setAttribute("data-width","100%");
+
+    embed.appendChild(script);
+
+   }else{
+    embed.textContent="Open original Telegram post.";
+   }
+
+   const open=document.createElement("a");
+   open.className="open";
+   open.href=link || "https://t.me/"+channel;
+   open.target="_blank";
+   open.rel="noopener";
+   open.textContent="OPEN ON TELEGRAM ↗";
+
+   card.append(heading,embed,open);
+
+   box.appendChild(card);
+
+  });
+
+  message.textContent=
+  items.length+" recent posts loaded.";
+
+ }catch(error){
+
+  message.textContent="Channel feed unavailable.";
+
+  box.innerHTML=
+  '<div class="empty">Unable to load posts automatically. '+
+  '<a style="color:#d6ad55" href="https://t.me/'+
+  channel+'" target="_blank">Open Channel</a></div>';
+
  }
 }
 
-function isFounder(){
- return !!auth.currentUser &&
- auth.currentUser.uid === FOUNDER_UID;
-}
+// TAB SWITCH
+document.querySelectorAll(".tabs button")
+.forEach(button=>{
 
-function closeModal(id){
- $(id).classList.add("hidden");
-}
+ button.addEventListener("click",()=>{
 
-function escapeHTML(value){
- return String(value ?? "").replace(/[&<>"']/g,c=>({
-  "&":"&amp;",
-  "<":"&lt;",
-  ">":"&gt;",
-  '"':"&quot;",
-  "'":"&#39;"
- })[c]);
-}
+  document.querySelectorAll(".tabs button")
+  .forEach(b=>b.classList.remove("active"));
 
-// AUTHENTICATION
-auth.onAuthStateChanged(async user=>{
- authReady = true;
+  button.classList.add("active");
 
- const allowed = !!user && user.uid === FOUNDER_UID;
+  const videos=button.dataset.tab==="videos";
 
- $("founderBtn").classList.toggle("hidden",allowed);
- $("adminBtn").classList.toggle("hidden",!allowed);
+  document.getElementById("posts-section").hidden=videos;
+  document.getElementById("videos-section").hidden=!videos;
 
- if(user && !allowed){
-  await auth.signOut();
-  alert("Unauthorized account.");
- }
+ });
 
- if(allowed){
-  loadManageList();
+});
+
+// PREMIUM
+document.getElementById("premium")
+.addEventListener("click",event=>{
+
+ if(!PREMIUM_LINK){
+  event.preventDefault();
+  alert("JOIN PREMIUM — COMING SOON");
  }else{
-  $("adminModal").classList.add("hidden");
+  event.currentTarget.href=PREMIUM_LINK;
  }
+
 });
-
-// LOGIN
-async function login(){
-
- if(!authReady){
-  $("loginMessage").textContent =
-   "Please wait. Firebase is initializing...";
-  return;
- }
-
- const email = $("email").value.trim();
- const password = $("password").value;
-
- if(!email || !password){
-  $("loginMessage").textContent =
-   "Please enter your email and password.";
-  return;
- }
-
- $("loginButton").disabled = true;
- $("loginMessage").textContent = "Connecting to Firebase...";
-
- try{
-
-  await setupAuth();
-
-  const result = await auth.signInWithEmailAndPassword(
-   email,
-   password
-  );
-
-  if(result.user.uid !== FOUNDER_UID){
-   await auth.signOut();
-   throw new Error("This account is not the founder.");
-  }
-
-  $("loginMessage").textContent = "";
-  $("password").value = "";
-
-  closeModal("loginModal");
-  openAdmin();
-
- }catch(error){
-
-  const messages = {
-   "auth/network-request-failed":
-    "Network connection failed. Check internet and try again.",
-
-   "auth/invalid-credential":
-    "Email or password is incorrect. Check Firebase account.",
-
-   "auth/user-not-found":
-    "No Firebase account found for this email.",
-
-   "auth/wrong-password":
-    "Incorrect password. Reset it in Firebase.",
-
-   "auth/invalid-email":
-    "Please enter a valid email address.",
-
-   "auth/unauthorized-domain":
-    "Add myat002.github.io to Firebase Authorized Domains.",
-
-   "auth/too-many-requests":
-    "Too many attempts. Please wait and try again.",
-
-   "auth/operation-not-allowed":
-    "Enable Email/Password sign-in in Firebase Authentication."
-  };
-
-  $("loginMessage").textContent =
-   messages[error.code] ||
-   (error.code || "Error") + ": " + error.message;
-
- }finally{
-  $("loginButton").disabled = false;
- }
-}
-
-// LOGOUT
-async function logout(){
- try{
-  await auth.signOut();
-  closeModal("adminModal");
- }catch(error){
-  alert(error.message);
- }
-}
-
-// MOVIE DATABASE
-function startMovies(){
-
- if(unsubscribe) unsubscribe();
-
- $("empty").textContent = "Loading movies...";
-
- unsubscribe = db.collection("movies")
- .orderBy("createdAt","desc")
- .onSnapshot(snapshot=>{
-
-  movies = snapshot.docs.map(doc=>({
-   id:doc.id,
-   ...doc.data()
-  }));
-
-  renderMovies();
-
-  if(isFounder()){
-   loadManageList();
-  }
-
- },error=>{
-
-  $("empty").textContent =
-   "Unable to load movies: " + error.message;
-
- });
-}
-
-// RENDER MOVIES
-function renderMovies(){
-
- const query = $("search").value.toLowerCase();
-
- const filtered = movies.filter(m=>{
-
-  const category = m.category || "MOVIES";
-
-  const matchCategory =
-   selectedCategory === "ALL" ||
-   category === selectedCategory;
-
-  const matchSearch =
-   (m.title || "").toLowerCase().includes(query);
-
-  return matchCategory && matchSearch;
- });
-
- $("movieList").innerHTML = filtered.map(m=>`
-
-  <article class="movie">
-
-   <img class="poster"
-    src="${escapeHTML(m.posterUrl || "")}"
-    alt="${escapeHTML(m.title)}"
-    onerror="this.style.visibility='hidden'">
-
-   <div class="movie-info">
-
-    <h3>${escapeHTML(m.title)}</h3>
-
-    <p>
-     ${escapeHTML(m.year)} ·
-     ${escapeHTML(m.category || "MOVIES")}
-    </p>
-
-    <button class="gold"
-     onclick="watchMovie('${m.id}')">
-     WATCH MOVIE
-    </button>
-
-   </div>
-  </article>
-
- `).join("");
-
- $("empty").classList.toggle(
-  "hidden",
-  filtered.length > 0
- );
-}
-
-$("search").addEventListener("input",renderMovies);
-
-// CATEGORY FILTER
-$("categories").addEventListener("click",e=>{
-
- const btn = e.target.closest("button[data-cat]");
-
- if(!btn) return;
-
- selectedCategory = btn.dataset.cat;
-
- document.querySelectorAll(".categories button")
- .forEach(b=>b.classList.remove("active"));
-
- btn.classList.add("active");
-
- renderMovies();
-});
-
-// VIDEO PLAYER
-function watchMovie(id){
-
- const movie = movies.find(m=>m.id===id);
-
- if(!movie) return;
-
- if(!movie.videoUrl){
-  alert("Video URL not found.");
-  return;
- }
-
- $("videoTitle").textContent = movie.title;
- $("videoMessage").textContent = "";
-
- const player = $("player");
-
- player.src = movie.videoUrl;
-
- $("videoModal").classList.remove("hidden");
-
- player.load();
-}
-
-function closeVideo(){
-
- const player = $("player");
-
- player.pause();
- player.removeAttribute("src");
- player.load();
-
- closeModal("videoModal");
-}
-
-// ADMIN PANEL
-function openAdmin(){
-
- if(!isFounder()){
-  $("loginModal").classList.remove("hidden");
-  return;
- }
-
- $("adminModal").classList.remove("hidden");
-
- loadManageList();
-}
-
-// RESET FORM
-function resetForm(){
-
- $("editId").value = "";
- $("title").value = "";
- $("year").value = "";
- $("category").value = "MOVIES";
- $("poster").value = "";
- $("video").value = "";
-
- $("adminMessage").textContent = "";
-}
-
-// SAVE MOVIE
-async function saveMovie(){
-
- if(!isFounder()){
-  alert("Founder access required.");
-  return;
- }
-
- const title = $("title").value.trim();
- const year = $("year").value.trim();
- const posterUrl = $("poster").value.trim();
- const videoUrl = $("video").value.trim();
- const category = $("category").value;
- const editId = $("editId").value;
-
- if(!title || !posterUrl || !videoUrl){
-  $("adminMessage").textContent =
-   "Please fill in all required fields.";
-  return;
- }
-
- if(!/^https?:\/\//i.test(posterUrl) ||
-    !/^https?:\/\//i.test(videoUrl)){
-  $("adminMessage").textContent =
-   "Enter valid HTTP or HTTPS URLs.";
-  return;
- }
-
- $("adminMessage").textContent = "Saving...";
-
- try{
-
-  const data = {
-   title,
-   year,
-   posterUrl,
-   videoUrl,
-   category,
-   updatedAt:
-    firebase.firestore.FieldValue.serverTimestamp()
-  };
-
-  if(editId){
-
-   await db.collection("movies")
-    .doc(editId)
-    .update(data);
-
-  }else{
-
-   data.createdAt =
-    firebase.firestore.FieldValue.serverTimestamp();
-
-   await db.collection("movies").add(data);
-
-  }
-
-  $("adminMessage").textContent =
-   "Movie saved successfully.";
-
-  resetForm();
-
- }catch(error){
-
-  $("adminMessage").textContent =
-   "Save failed: " + error.message;
-
- }
-}
-
-// MANAGE MOVIES
-function loadManageList(){
-
- if(!isFounder()) return;
-
- $("manageList").innerHTML = movies.map(m=>`
-
-  <div style="padding:12px;border-bottom:1px solid #444">
-
-   <b>${escapeHTML(m.title)}</b>
-
-   <br><br>
-
-   <button class="gold"
-    onclick="editMovie('${m.id}')">
-    EDIT
-   </button>
-
-   <button class="dark"
-    onclick="deleteMovie('${m.id}')">
-    DELETE
-   </button>
-
-  </div>
-
- `).join("");
-
-}
-
-// EDIT MOVIE
-function editMovie(id){
-
- if(!isFounder()) return;
-
- const m = movies.find(x=>x.id===id);
-
- if(!m) return;
-
- $("editId").value = m.id;
- $("title").value = m.title || "";
- $("year").value = m.year || "";
- $("category").value = m.category || "MOVIES";
- $("poster").value = m.posterUrl || "";
- $("video").value = m.videoUrl || "";
-
- $("adminMessage").textContent =
-  "Editing: " + m.title;
-
-}
-
-// DELETE MOVIE
-async function deleteMovie(id){
-
- if(!isFounder()) return;
-
- if(!confirm("Delete this movie?")) return;
-
- try{
-
-  await db.collection("movies")
-   .doc(id)
-   .delete();
-
- }catch(error){
-
-  alert(error.message);
-
- }
-}
-
-// BUTTONS
-$("founderBtn").onclick = ()=>{
- $("loginModal").classList.remove("hidden");
-};
-
-$("adminBtn").onclick = openAdmin;
 
 // START
-startMovies();
+function refresh(){
+
+ loadChannel(
+  POST_CHANNEL,
+  "posts",
+  "postStatus"
+ );
+
+ loadChannel(
+  STORAGE_CHANNEL,
+  "videos",
+  "videoStatus"
+ );
+
+}
+
+refresh();
+
+// AUTO REFRESH EVERY 5 MINUTES
+setInterval(refresh,300000);
 
 </script>
-
 </body>
 </html>
