@@ -7,6 +7,7 @@
 <meta name="theme-color" content="#080808">
 <title>VYNX CINEMA</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;500;600;700&family=DM+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{
@@ -19,14 +20,21 @@ padding:25px 16px;
 }
 .container{width:100%;max-width:520px}
 header{text-align:center;margin-bottom:35px}
+
 .logo{
-width:85px;height:85px;margin:0 auto 20px;
-border:2px solid #d9ad55;border-radius:24px;
-display:grid;place-items:center;
-font:800 32px 'DM Sans',sans-serif;color:#ffe2a0;
+display:inline-block;
+margin:0 auto 20px;
+padding:15px 22px;
+border:1px solid #d9ad55;
+border-radius:16px;
 background:linear-gradient(145deg,#302311,#101010);
 box-shadow:0 0 35px #d9ad5530;
+font:800 25px 'DM Sans',sans-serif;
+letter-spacing:3px;
+color:#ffe2a0;
+white-space:nowrap;
 }
+
 .small{color:#d9ad55;font:700 11px 'DM Sans',sans-serif;letter-spacing:5px}
 h1{font:800 36px 'DM Sans',sans-serif;letter-spacing:2px;margin-top:8px}
 .subtitle{color:#aaa;font:11px 'DM Sans',sans-serif;letter-spacing:3px;margin-top:10px}
@@ -55,14 +63,19 @@ border:1px solid #d9ad5540;color:#ffdc91;font-size:23px;
 .arrow{color:#e7bd65;font-size:25px}
 footer{text-align:center;margin-top:35px;color:#777;font:10px 'DM Sans',sans-serif;letter-spacing:3px}
 footer span{color:#d9ad55}
-@media(max-width:380px){h1{font-size:30px}.name{font-size:12px}}
+@media(max-width:380px){
+.logo{font-size:21px;padding:14px 16px}
+h1{font-size:30px}
+.name{font-size:12px}
+}
 </style>
 </head>
+
 <body>
 <main class="container">
 
 <header>
-<div class="logo">VC</div>
+<div class="logo">VYNX CINEMA</div>
 <div class="small">WELCOME TO</div>
 <h1>VYNX CINEMA</h1>
 <div class="subtitle">YOUR ENTERTAINMENT HUB</div>
